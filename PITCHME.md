@@ -423,8 +423,6 @@ By leveraging technologies like Kafka and Spark in the service of IoT devices an
 
 ### Hardware Paradigm
 
-The hardware paradigm has exploded:
-
 * High-quality, on-prem, virtualized servers loaded with RAM and CPU cores running on NVMe SANs.
 * Smaller endpoint servers (e.g., IoT devices) communicating back to the big servers.
 * Cloud servers with mid-to-large amounts of RAM and compute backed by S3/Blob Storage plus local SSD.
@@ -558,10 +556,10 @@ These are two separate tools for two separate jobs.
 
 These are **complements**, not competitors!
 
-* Accept data with Kafka, aggregate using Spark Streaming/Kafka Streams, and then feed data into SQL Server.
-* Store transactional data in SQL Server and migrate into a Hadoop data lake.  Then, build reports in Hive.
-* Offload nightly processing by taking OLTP data from SQL Server, moving it to Hadoop, processing in Spark, and then moving processed data into a SQL Server warehouse.
-* Perform analytics against large transactional data sets by pulling data into Spark and analyzing using SparkR or sparklyr.
+* Kafka ==> Spark Streaming ==> SQL Server
+* OLTP in SQL Server ==> Hadoop data lake ==> Hive reports
+* Nightly OLTP dump SQL Server ==> HDFS ==> Spark ==> SQL Server Warehouse
+* OLTP ==> Spark ==> SparkR / sparklyr
 
 ---
 
@@ -603,7 +601,7 @@ Microsoft provides some cross-platform support in various drivers.  They have, f
 
 ### SSIS
 
-SQL Server Integration Services has some limited Hadoop integration, such as running Hive and Pig jobs.
+SQL Server Integration Services has limited Hadoop integration, like running Hive and Pig jobs.
 
 <img src="presentation/assets/image/SSIS.png" height="415" width="532" />
 
@@ -629,7 +627,7 @@ With SQL Server 2019, PolyBase support has expanded to include JDBC connections,
 
 We covered quite a few Hadoop ecosystem technologies today, but don't feel overwhelmed.  Start with these:
 
-* Hive and Impala provide warehousing and SQL queries.  Learn one of these early.
+* Hive or Impala for SQL warehousing.
 * Spark:  learn Scala or Python and then learn how to integrate with Spark SQL.
 * Kafka and one streaming technology (Kafka Streams, Spark Streaming, or Flink).
 * For administrators:  Ranger and Knox, two security tools in Hadoop.
