@@ -1,0 +1,10 @@
+li.active {color:Red}
+div.informative{float:left;padding-right:1em}
+table.informative thead td {background-color:Navy;color:White}
+table.informative td{ border:1px;border-style:solid;border-color:black;padding:2px; }
+table.informative{font-size:0.8em}
+.problem {color:Red}
+.textblock{text-align:left}
+.solution {color:Green}
+table.whoami td{vertical-align:middle;}
+.imgsize{width:50vw;height:50vw;max-height:75vh;max-width:75vh;}
