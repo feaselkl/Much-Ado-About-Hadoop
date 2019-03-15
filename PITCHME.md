@@ -83,7 +83,8 @@ Since then, Hadoop has taken off as its own ecosystem, allowing companies to pro
 
 Warning:  many of these products have names very similar to Pokemon.  Ex:  Metron vs Magneton.
 
-<img src="presentation/assets/image/Metron.png" width="370" height="121" />&nbsp;&nbsp;<img src="presentation/assets/image/Magneton.png" width="240" height="240" />
+<img src="presentation/assets/image/Metron.png" width="370" height="121" />
+<img src="presentation/assets/image/Magneton.png" width="240" height="240" />
 
 ---
 
@@ -125,9 +126,9 @@ Data nodes store data and run code, returning results back to the NameNode to ma
 
 ### HDFS
 
-The <strong>Hadoop Distributed File System</strong> is a Linux-like file system which splits data into fixed-size chunks (e.g., 64MB, 128MB, 256MB).  The file system distributes and replicates these blocks to various nodes, and can re-balance nodes automatically.
+The <strong>Hadoop Distributed File System</strong> splits data into fixed-size chunks (e.g., 256MB), distributing and replicating to data nodes automatically.
 
-<img src="HDFSFileBreakout.png" height="334" width="617" />
+<img src="presentation/assets/image/HDFSFileBreakout.png" height="334" width="617" />
 
 ---?image=presentation/assets/background/records.jpg&size=cover&opacity=20
 
@@ -141,11 +142,11 @@ A common pattern is to use folders to hold similar data and process all data in 
 
 ### The Software Paradigm
 
-* On Linux, C is still popular, but Java is the easiest popular language and is cross-portable on most hardware.
+* On Linux, C is still popular, but Java is the most cross-portable.
 * RAM is much faster than disk but is limited.
-* Network bandwidth is somewhat limited, so extremely chatty servers are an impediment.
+* Network bandwidth is somewhat limited.
 * Data structure is context-sensitive and the same file may have several structures.
-* Developers know the data context when they write their code.
+* Developers know the data context.
 
 This is how we got semi-structured data retrieval with MapReduce.
 
@@ -172,8 +173,6 @@ Semi-structured data helps in two situations:
 
 ### MapReduce
 
-MapReduce is built around two functional programming constructs:
-
 * **Map**:  filter and sort data
 * **Reduce**:  aggregate data
 
@@ -188,8 +187,6 @@ The nodes which perform mapping may not be the same nodes which perform reductio
 ![An example of MapReduce at work.](presentation/assets/image/mapreduce-example.png)
 
 <a href="http://www.infosun.fim.uni-passau.de/cl/MapReduceFoundation/">Image Source</a>
-
-Each Map node reads specific blocks of data and applies a function.  Once this is done, each Reduce node is responsible for aggregating intermediate results to create a final output. The final output is then presented to the user.
 
 ---?image=presentation/assets/background/surfer-crash.jpg&size=cover&opacity=20
 
@@ -211,7 +208,7 @@ Powerset created HBase in 2008, and its first big use was Facebook Messenger.
 
 ### Pig
 
-![Pig logo](presentation/assets/image/Pig.gif)
+<img src="presentation/assets/image/Pig.gif" height="300" width="200" />
 
 In 2008, Yahoo created Pig, a procedural language designed for ETL.  Pig generates MapReduce jobs in significantly fewer lines of code.
 
@@ -227,9 +224,9 @@ Facebook developed Hive and first released it in 2010.  Hive was developed for H
 
 ### Hadoop Goes Corporate
 
-<img src="Cloudera.png" height="77" width="320" alt="Cloudera" title="Cloudera" />
-<img src="MapR.png" height="126" width="184" alt="MapR" title="MapR" />
-<img src="Hortonworks.png" height="91" width="258" alt="Hortonworks" title="Hortonworks" />
+<img src="presentation/assets/image/Cloudera.png" height="77" width="320" alt="Cloudera" title="Cloudera" />
+<img src="presentation/assets/image/MapR.png" height="126" width="184" alt="MapR" title="MapR" />
+<img src="presentation/assets/image/Hortonworks.png" height="91" width="258" alt="Hortonworks" title="Hortonworks" />
 
 In 2008, Cutting left Yahoo and formed Cloudera.  MapR followed in 2009 and Hortonworks in 2011.
 
@@ -247,7 +244,7 @@ In 2008, Cutting left Yahoo and formed Cloudera.  MapR followed in 2009 and Hort
 6. Comparison to SQL Server
 7. Microsoft and Hadoop
 
----
+---?image=presentation/assets/background/white-wall.jpg&size=cover&opacity=60
 
 ### In the Mainstream
 
@@ -273,7 +270,7 @@ Major changes during this time were mostly around integration with the outside w
 
 ### Storm
 
-![A sample Storm data flow.](presentation/assets/image/storm-flow.png)
+<img src="presentation/assets/image/storm-flow.png" height="250" width="600" />
 
 Storm feeds on data from sources, processes the data, and feeds the data to sinks.  Java is the primary language for these transformations and processes.
 
@@ -307,11 +304,11 @@ Flume is another early example of the streaming paradigm in Hadoop.  In this cas
 6. Comparison to SQL Server
 7. Microsoft and Hadoop
 
----
+---?image=presentation/assets/background/white-wall.jpg&size=cover&opacity=60
 
 ### Faster, Please
 
-As more companies adopted Hadoop, we started to see a shift in mentality.  This was the "I can solve problem X better than Hadoop" era, and the Trough of Disillusionment in the Gartner hype cycle.
+As more companies adopted Hadoop, we reached the Trough of Disillusionment.  This was the "I can solve problem X better than Hadoop" era.
 
 ![The Gartner hype cycle](presentation/assets/image/HypeCycle.svg)
 
@@ -323,10 +320,10 @@ The hardware paradigm had changed a bit:
 
 * "Off the shelf" becomes "specially designed."
 * DAS to SAN to SAN + SSD.
-* Servers have increasingly more memory.  512 GB is fairly common and we can find 1-2 TB machines in the wild.
+* Servers have increasingly more memory.  512+ GB is fairly common.
 * Servers still on-prem.
 * VMs instead of physical hardware.
-* Higher-quality hardware, so fewer expected failures.
+* Fewer expected hardware failures.
 
 Some of these changes were tricky for Hadoop.
 
@@ -336,7 +333,7 @@ Some of these changes were tricky for Hadoop.
 
 * HDFS assumes breaking large amounts of data across a number of drives.  With SANs, companies don't want to duplicate segments--those are expensive disks!  Doubly so with SSDs.
 * Virtualization posed conceptual challenges around available resources.
-* With faster, more stable hardware, customers wanted Hadoop to perform faster and get closer to real-time.
+* With faster hardware, customers wanted Hadoop to perform closer to real-time.
 
 During this timeframe, we start to see the next wave of Hadoop technologies.
 
@@ -358,9 +355,9 @@ Apache Spark is the biggest single product to come out of the Hadoop ecosystem s
 
 ### Spark
 
-Spark was written in Scala, and Scala is still the primary language of Spark.  Since then, the Spark team have ensured that there <strong>usually</strong> are Java and Python APIs, and they have also implemented support for SQL and some support or R (in the Machine Learning library).
+Scala is the primary language of Spark.  The Spark team have ensured that there **usually** are Java and Python APIs, and they have also implemented support for SQL and some support or R (in the Machine Learning library).
 
-SparkR (the Spark library) and sparklyr (the community library) are both interesting, as they allow us to analyze data sets much larger than a single machine could process, getting us past a prior R limitation.
+SparkR (the Spark library) and sparklyr (the community library) are both interesting, as they allow us to analyze data sets much larger than a single machine could process.
 
 ---?image=presentation/assets/background/formula1.jpg&size=cover&opacity=20
 
@@ -370,7 +367,7 @@ In response to Spark, the Hive team came out with Hive LLAP and Hortonworks ties
 
 Druid is a columnstore database with inverted indexes, pointing out which fact rows tie to a particular dimensional value.  Druid does not do joins, so it is not a general-purpose solution.
 
----?image=presentation/assets/background/kafka.jpg&size=cover&opacity=20
+---?image=presentation/assets/background/kafka.jpg&size=cover&opacity=70
 
 ### Kafka
 
@@ -414,23 +411,23 @@ Kafka behaves like a log.  This allows multiple consumers to work together to so
 6. Comparison to SQL Server
 7. Microsoft and Hadoop
 
----
+---?image=presentation/assets/background/white-wall.jpg&size=cover&opacity=60
 
 ### Streaming and Cloud
 
-Hadoop has seen another shift, leveraging technologies like Kafka and Spark in the service of IoT devices and streaming data.  We are getting to the Slope of Enlightenment in the Gartner hype cycle.
+By leveraging technologies like Kafka and Spark in the service of IoT devices and streaming data, we see a move toward the Slope of Enlightment.
 
 ![The Gartner hype cycle](presentation/assets/image/HypeCycle.svg)
 
----?image=presentation/assets/background/space.jpg&size=cover&opacity=20
+---?image=presentation/assets/background/space.jpg&size=cover&opacity=40
 
 ### Hardware Paradigm
 
 The hardware paradigm has exploded:
 
-* High-quality, on-prem, virtualized servers loaded with RAM and CPU cores running on flash array SANs.
-* Smaller endpoint servers, often running on IoT devices and communicating back to the big servers.
-* Cloud servers:  VMs in AWS or Azure with mid-to-large amounts of RAM and compute, and often backed by S3 or Blob Storage plus local SSD.
+* High-quality, on-prem, virtualized servers loaded with RAM and CPU cores running on NVMe SANs.
+* Smaller endpoint servers (e.g., IoT devices) communicating back to the big servers.
+* Cloud servers with mid-to-large amounts of RAM and compute backed by S3/Blob Storage plus local SSD.
 * Docker containers for development environments.
 
 Hadoop now appears in more guises.
@@ -453,7 +450,7 @@ The biggest advantage that NiFi has is its GUI, which makes it easy for Informat
 
 ### Streaming
 
-Several streaming technologies have become popular over the past couple of years.  Apache Storm was the progenitor but is relatively uncommon nowadays.  Contenders:
+Apache Storm was the streaming progenitor but is less common nowadays.  Contenders:
 
 |Name|Notes|
 |----|-----|
@@ -527,9 +524,9 @@ Hortonworks Data Platform and Cloudera Distribution of Hadoop will continue to b
 |-----|------|----------|
 |Processing|Batch (classic), Online (streaming)|Online/Batch|
 |Structure|Semi-structured|Structured|
-|Data Combination|Hard|Trivial|
+|Joins|Hard|Trivial|
 |Scale-Out|Trivial|Hard|
-|Data Maintenance|Mostly append|Merge|
+|New Data|Mostly append|Merge|
 
 These are two separate tools for two separate jobs.
 
@@ -592,7 +589,7 @@ Pre-merger, Microsoft had associated itself closely with Hortonworks.  Azure's H
 
 Microsoft has provided NuGet package to integrate with Hadoop.  These packages allow you to do things like manage HDFS and query Hive with LINQ.
 
-<img src="MicrosoftHadoop.png" height="367" width="797" />
+<img src="presentation/assets/image/MicrosoftHadoop.png" height="367" width="797" />
 
 ---?image=presentation/assets/background/library.jpg&size=cover&opacity=20
 
@@ -608,7 +605,7 @@ Microsoft provides some cross-platform support in various drivers.  They have, f
 
 SQL Server Integration Services has some limited Hadoop integration, such as running Hive and Pig jobs.
 
-<img src="SSIS.png" height="415" width="532" />
+<img src="presentation/assets/image/SSIS.png" height="415" width="532" />
 
 ---?image=presentation/assets/background/polyhedron.jpg&size=cover&opacity=20
 
@@ -630,12 +627,12 @@ With SQL Server 2019, PolyBase support has expanded to include JDBC connections,
 
 ### Technologies to Learn
 
-We covered quite a few Hadoop ecosystem technologies today, but don't feel overwhelmed.  There are a few technologies which are more important to learn early on:
+We covered quite a few Hadoop ecosystem technologies today, but don't feel overwhelmed.  Start with these:
 
 * Hive and Impala provide warehousing and SQL queries.  Learn one of these early.
 * Spark:  learn Scala or Python and then learn how to integrate with Spark SQL.
-* Become familiar with Kafka and one of the streaming technologies (Kafka Streams, Spark Streaming, or Flink).
-* If you are an administrator, definitely learn about Ranger and Knox, two security tools in Hadoop.
+* Kafka and one streaming technology (Kafka Streams, Spark Streaming, or Flink).
+* For administrators:  Ranger and Knox, two security tools in Hadoop.
 
 ---?image=presentation/assets/background/wrapping-paper.jpg&size=cover&opacity=20
 
