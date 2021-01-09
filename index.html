@@ -1,0 +1,718 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Catallaxy Services | Much Ado About Hadoop</title>
+
+		<link rel="stylesheet" href="../reveal.js/dist/reset.css">
+		<link rel="stylesheet" href="../reveal.js/dist/reveal.css">
+		<link rel="stylesheet" href="../reveal.js/dist/theme/black.css" id="theme">
+		<link rel="stylesheet" href="../WebsiteAssets/mods.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="../reveal.js/plugin/highlight/monokai.css" id="highlight-theme">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h2>Much Ado About Hadoop</h2>
+					
+					<a href="https://www.catallaxyservices.com">Kevin Feasel</a> (<a href="https://twitter.com/feaselkl">@feaselkl</a>)<br />
+					<a href="http://CSmore.info/on/hadoop">http://CSmore.info/on/hadoop</a>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Who Am I?  What Am I Doing Here?</h3>
+					<div class="container">
+						<div class="col">
+							<table class="whoami">
+								<tr>
+									<td><a href="https://csmore.info"><img src="../WebsiteAssets/Logo.png" height="100" /></a></td>
+									<td nowrap><a href="https://csmore.info">Catallaxy Services</a></td>
+								</tr>
+								<tr>
+									<td><a href="https://curatedsql.com"><img src="../WebsiteAssets/CuratedSQLLogo.png" height="100" /></a></td>
+									<td nowrap><a href="https://curatedsql.com">Curated SQL</a></td>
+								</tr>
+								<tr>
+									<td><a href="https://www.apress.com/us/book/9781484254608"><img src="../WebsiteAssets/PolyBaseRevealed.png" height="120" /></a></td>
+									<td nowrap><a href="https://www.apress.com/us/book/9781484254608">PolyBase Revealed</a></td>
+								</tr>
+							</table>
+						</div>
+						<div class="col">
+							<a href="http://www.twitter.com/feaselkl"><img src="../WebsiteAssets/HeadShot.jpg" height="358" width="315" /></a>
+							<br />
+							<a href="http://www.twitter.com/feaselkl">@feaselkl</a>
+						</div>					
+					</div>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Agenda</h3>
+					
+					<ol>
+						<li class="active">Basic Overview</li>
+						<li>(2007-2011) The Birth of Hadoop</li>
+						<li>(2012-2014) Hadoop Hits the Mainstream</li>
+						<li>(2014-2016) Faster, Please</li>
+						<li>(2016-Now) Streaming and Cloud</li>
+						<li>Comparison to SQL Server</li>
+						<li>Microsoft and Hadoop</li>
+					</ol>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/paper-stack.jpg" data-background-opacity="0.2">
+					<h3>The Origins of Hadoop</h3>
+					
+					<p>Hadoop started as a pair of Google whitepapers:  the Google File System and MapReduce.  Doug Cutting, while working at Yahoo, applied these concepts to search engine processing.</p>
+
+					<p>Since then, Hadoop has taken off as its own ecosystem, allowing companies to process petabytes of data efficiently over thousands of machines.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/lake.jpg" data-background-opacity="0.2">
+					<h3>Great Use Cases</h3>
+					
+					<ul>
+						<li>Processing gigantic numbers of records, where a single-server solution is cost prohibitive or unavailable.</li>
+						<li>"Cold storage" of relational data with PolyBase.</li>
+						<li>Real-time ETL and streaming of data.</li>
+						<li>Statistical analysis of gigantic data sets.</li>
+						<li>A central data repository (data lake).</li>
+					</ul>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/engineering.jpg" data-background-opacity="0.2">
+					<h3>Important Skills</h3>
+				
+					<ul>
+						<li>Java -- You can use other languages (e.g., Scala, Python, even C#) but Java is the most prevalent.</li>
+						<li>SQL -- There are several SQL engines in the Hadoop ecosystem including Hive, Spark SQL, and Phoenix.</li>
+						<li>Shell scripting -- Knowledge of Bash is vital for administering a Hadoop cluster and even writing jobs to operate against your cluster.</li>
+						<li>Linux -- Some components can run on Windows, but <strong>everybody</strong> uses Linux.</li>
+					</ul>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Gotta Catch 'Em All</h3>
+					
+					<p>Warning:  many of these products have names very similar to Pokemon.  Ex:  Metron vs Magneton.</p>
+
+					<img src="presentation/assets/image/Metron.png" width="370" height="121" />
+					<img src="presentation/assets/image/Magneton.png" width="240" height="240" />
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Agenda</h3>
+					
+					<ol>
+						<li>Basic Overview</li>
+						<li class="active">(2007-2011) The Birth of Hadoop</li>
+						<li>(2012-2014) Hadoop Hits the Mainstream</li>
+						<li>(2014-2016) Faster, Please</li>
+						<li>(2016-Now) Streaming and Cloud</li>
+						<li>Comparison to SQL Server</li>
+						<li>Microsoft and Hadoop</li>
+					</ol>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/old-equipment.jpg" data-background-opacity="0.2">
+					<h3>The Hardware Paradigm</h3>
+					
+					<ul>
+						<li>Lots of off-the-shelf servers with direct attached storage.  "Lots" was dozens, then hundreds, then thousands.</li>
+						<li>Storage was primarily spinning disk.</li>
+						<li>Servers were held on-prem.</li>
+						<li>Servers were phyiscal machines.</li>
+						<li>There was some expectation of server failure.</li>
+					</ul>
+					
+					<p>This hardware paradigm drove technical decisions.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/repetition.jpg" data-background-opacity="0.2">
+					<h3>Node Types</h3>
+					
+					<p>There are two primary node types in Hadoop:  the NameNode and data nodes.</p>
+
+					<p>The <strong>NameNode</strong> is also known as the control node or the head node.  It is responsible for communication with the outside world, coordination with data nodes, and ensuring that jobs run.</p>
+
+					<p>Data nodes store data and run code, returning results back to the NameNode to make available to the user.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>HDFS</h3>
+					
+					<p>HDFS is <strong>append-only</strong>, meaning you can add rows to an existing file, but cannot modify or delete rows in an existing file.  Deleting or modifying rows requires deleting and re-loading that file, and  even adding rows probably should be done in a different file.</p>
+
+					<p>A common pattern is to use folders to hold similar data and process all data in that folder as a unit.  In that case, we still want the invidiual files to be large enough to chunk out and distribute.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/ram.jpg" data-background-opacity="0.2">
+					<h3>The Software Paradigm</h3>
+					
+					<ul>
+						<li>On Linux, C is still popular, but Java is the most cross-portable.</li>
+						<li>RAM is much faster than disk but is limited.</li>
+						<li>Network bandwidth is somewhat limited.</li>
+						<li>Data structure is context-sensitive and the same file may have several structures.</li>
+						<li>Developers know the data context.</li>
+					</ul>
+					
+					<p>This is how we got semi-structured data retrieval with MapReduce.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Data Retrieval</h3>
+					
+					<p>Hadoop follows a "semi-structured" data model:  you define the data structure not when adding files to HDFS, but rather upon retrieval.  You can still do ETL and data integrity checks before moving data to HDFS, but it is not mandatory.</p>
+
+					<p>By contrast, a Kimball-style data warehouse is a structured data model:  ETL is required before loading data into the warehouse.  Once the data is in, queries can make good assumptions about data integrity and structure.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Data Retrieval</h3>
+					
+					<p>Semi-structured data helps in two situations:</p>
+
+					<ul>
+						<li>Different lines have different sets of values.</li>
+						<li>Different applications need the data aligned different ways.</li>
+					</ul>
+					
+					<img src="presentation/assets/image/SampleErrorLog.png" />
+				</section>
+				
+				<section data-background-image="presentation/assets/background/map.jpg" data-background-opacity="0.2">
+					<h3>MapReduce</h3>
+
+					<ul>
+						<li><strong>Map</strong>:  filter and sort data</li>
+						<li><strong>Reduce</strong>:  aggregate data</li>
+					</ul>
+					
+					<p>Hadoop combines the Map and Reduce operations as part of its MapReduce engine.  Each Hadoop "query" performs mapping and reduction on specific nodes in sequence.</p>
+
+					<p>The nodes which perform mapping may not be the same nodes which perform reduction, allowing for large-scale performance improvement.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/white-wall.jpg" data-background-opacity="0.4">
+					<h3>Data Retrieval</h3>
+					
+					<img src="presentation/assets/image/mapreduce-example.png" />
+					
+					<p><a href="http://www.infosun.fim.uni-passau.de/cl/MapReduceFoundation/">Image Source</a></p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/surfer-crash.jpg" data-background-opacity="0.2">
+					<h3>The Downside of MapReduce</h3>
+					
+					<p>The primary downside to MapReduce is that it takes a large amount of code to get actual work done (insert your own Java joke here). To counter this, various groups quickly came up with different add-ons and other languages.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>HBase</h3>
+					
+					<img src="presentation/assets/image/HBase.png" />
+					
+					<p>One of the first add-ons in the Hadoop ecosystem was HBase, a non-relational database meant for near-real-time data modification.</p>
+
+					<p>Powerset created HBase in 2008, and its first big use was Facebook Messenger.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Pig</h3>
+					
+					<img src="presentation/assets/image/Pig.gif" height="300" width="200" />
+					
+					<p>In 2008, Yahoo created Pig, a procedural language designed for ETL.  Pig generates MapReduce jobs in significantly fewer lines of code.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Hive</h3>
+					
+					<img src="presentation/assets/image/Hive.jpg" />
+					
+					<p>Facebook developed Hive and first released it in 2010.  Hive was developed for Hadoop warehousing, allowing users to write SQL queries.  For this reason, Hive has been the most popular tool in the Hadoop ecosystem.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Hadoop Goes Corporate</h3>
+					
+					<img src="presentation/assets/image/Cloudera.png" height="77" width="320" alt="Cloudera" title="Cloudera" />
+					<img src="presentation/assets/image/MapR.png" height="126" width="184" alt="MapR" title="MapR" />
+					<img src="presentation/assets/image/Hortonworks.png" height="91" width="258" alt="Hortonworks" title="Hortonworks" />
+					
+					<p>In 2008, Cutting left Yahoo and formed Cloudera.  MapR followed in 2009 and Hortonworks in 2011.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Agenda</h3>
+					
+					<ol>
+						<li>Basic Overview</li>
+						<li>(2007-2011) The Birth of Hadoop</li>
+						<li class="active">(2012-2014) Hadoop Hits the Mainstream</li>
+						<li>(2014-2016) Faster, Please</li>
+						<li>(2016-Now) Streaming and Cloud</li>
+						<li>Comparison to SQL Server</li>
+						<li>Microsoft and Hadoop</li>
+					</ol>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/white-wall.jpg" data-background-opacity="0.4">
+					<h3>In the Mainstream</h3>
+					
+					<p>By 2012, Hadoop had become the next "it" technology.  We were getting into the peak of inflated expectations in the Gartner hype cycle.</p>
+					
+					<img src="presentation/assets/image/HypeCycle.svg" />
+				</section>
+				
+				<section data-background-image="presentation/assets/background/cabling.jpg" data-background-opacity="0.2">
+					<h3>Hardware Paradigm</h3>
+					
+					<ul>
+						<li>Off-the-shelf servers with direct attached storage.</li>
+						<li>Storage was primarily spinning disk.</li>
+						<li>Servers were held on-prem.</li>
+						<li>Servers were phyiscal machines.</li>
+						<li>There was some expectation of server failure.</li>
+					</ul>
+					
+					<p>Major changes during this time were mostly around integration with the outside world.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Storm</h3>
+					
+					<img src="presentation/assets/image/storm-flow.png" height="250" width="600" />
+					
+					<p>Storm feeds on data from sources, processes the data, and feeds the data to sinks.  Java is the primary language for these transformations and processes.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/excavator.jpg" data-background-opacity="0.2">
+					<h3>Sqoop</h3>
+					
+					<p>Sqoop is a quick-and-easy console program designed to ingest data from database servers (like SQL Server) into Hadoop and also push data back to database servers.  Sqoop's first public release was 2012.</p>
+
+					<p>Sqoop is good for loading entire tables/databases into Hadoop and loading staging tables into SQL Server.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/logs.jpg" data-background-opacity="0.2">
+					<h3>Flume</h3>
+					
+					<p>Apache Flume is a tool designed to ingest log data.  Flume was released in 2012.</p>
+
+					<p>Flume is another early example of the streaming paradigm in Hadoop.  In this case, it was mostly around log data, but also works for other data sources, feeding that data into HDFS for analysis within Hive.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Agenda</h3>
+					
+					<ol>
+						<li>Basic Overview</li>
+						<li>(2007-2011) The Birth of Hadoop</li>
+						<li>(2012-2014) Hadoop Hits the Mainstream</li>
+						<li class="active">(2014-2016) Faster, Please</li>
+						<li>(2016-Now) Streaming and Cloud</li>
+						<li>Comparison to SQL Server</li>
+						<li>Microsoft and Hadoop</li>
+					</ol>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/white-wall.jpg" data-background-opacity="0.4">
+					<h3>Faster, Please</h3>
+					
+					<p>As more companies adopted Hadoop, we reached the Trough of Disillusionment.  This was the "I can solve problem X better than Hadoop" era.</p>
+					
+					<img src="presentation/assets/image/HypeCycle.svg" />
+				</section>
+				
+				<section data-background-image="presentation/assets/background/server-room.jpg" data-background-opacity="0.2">
+					<h3>Hardware Paradigm</h3>
+					
+					<p>The hardware paradigm had changed a bit:</p>
+					
+					<ul>
+						<li>"Off the shelf" becomes "specially designed."</li>
+						<li>DAS to SAN to SAN + SSD.</li>
+						<li>Servers have increasingly more memory.  512+ GB is fairly common.</li>
+						<li>Servers still on-prem.</li>
+						<li>VMs instead of physical hardware.</li>
+						<li>Fewer expected hardware failures.</li>
+					</ul>
+					
+					<p>Some of these changes were tricky for Hadoop.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/junk.jpg" data-background-opacity="0.2">
+					<h3>Stress Points</h3>
+
+					<ul>
+						<li>HDFS assumes breaking large amounts of data across a number of drives.  With SANs, companies don't want to duplicate segments--those are expensive disks!  Doubly so with SSDs.</li>
+						<li>Virtualization posed conceptual challenges around available resources.</li>
+						<li>With faster hardware, customers wanted Hadoop to perform closer to real-time.</li>
+					</ul>
+					
+					<p>During this timeframe, we start to see the next wave of Hadoop technologies.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/cobra.jpg" data-background-opacity="0.2">
+					<h3>Tez</h3>
+					
+					<p>Apache Tez builds directed acyclic graphs as a method of optimizing MapReduce jobs.  These jobs typically involve less writing to disk and fewer map operations.</p>
+
+					<p>Tez is now readily available in Hive and Pig and can be a 3x or better performance improvement on realistic workloads.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/sparkler.jpg" data-background-opacity="0.2">
+					<h3>Spark</h3>
+					
+					<p>Apache Spark is the biggest single product to come out of the Hadoop ecosystem since Hive.  Spark takes advantage of increased memory loads on servers and builds memory-resident, distributed datasets called RDDs (Resilient Distributed Datasets).  These RDDs allow multiple servers independently to work on a problem using their own memory spaces, writing only when necessary.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/fireworks.jpg" data-background-opacity="0.2">
+					<h3>Spark</h3>
+					
+					<p>Scala is the primary language of Spark.  The Spark team have ensured that there <strong>usually</strong> are Java and Python APIs, and they have also implemented support for SQL and some support or R (in the Machine Learning library).</p>
+
+					<p>SparkR (the Spark library) and sparklyr (the community library) are both interesting, as they allow us to analyze data sets much larger than a single machine could process.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/formula1.jpg" data-background-opacity="0.2">
+					<h3>Hive LLAP and Druid</h3>
+					
+					<p>In response to Spark, the Hive team came out with Hive LLAP and Hortonworks ties this with Apache Druid.  LLAP is intended for low-latency analytical processing:  faster warehousing queries.</p>
+
+					<p>Druid is a columnstore database with inverted indexes, pointing out which fact rows tie to a particular dimensional value.  Druid does not do joins, so it is not a general-purpose solution.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/kafka.jpg" data-background-opacity="0.7">
+					<h3>Kafka</h3>
+					
+					<p>LinkedIn first released Kafka in 2011, but it really took off a few years later.  Apache Kafka is a message broker on the Hadoop stack.  It receives messages from producers and sends messages to consumers.  Everything in Kafka is distributed.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Kafka</h3>
+					
+					<p>Kafka takes message from producers and sends messages to consumers.  Each piece of the puzzle is resilient and scalable thanks to the distributed-everything architecture.</p>
+					
+					<img src="presentation/assets/image/Kafka_Overall.png" />
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Kafka</h3>
+					
+					<p>Most message brokers behave like queues.</p>
+					
+					<img src="presentation/assets/image/QueueModel.png" />
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Kafka</h3>
+					
+					<p>Kafka behaves like a log.  This allows multiple consumers to work together to solve different problems off of the same data set.</p>
+					
+					<img src="presentation/assets/image/LogModel.png" />
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Agenda</h3>
+					
+					<ol>
+						<li>Basic Overview</li>
+						<li>(2007-2011) The Birth of Hadoop</li>
+						<li>(2012-2014) Hadoop Hits the Mainstream</li>
+						<li>(2014-2016) Faster, Please</li>
+						<li class="active">(2016-Now) Streaming and Cloud</li>
+						<li>Comparison to SQL Server</li>
+						<li>Microsoft and Hadoop</li>
+					</ol>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/white-wall.jpg" data-background-opacity="0.4">
+					<h3>Streaming and Cloud</h3>
+					
+					<p>By leveraging technologies like Kafka and Spark in the service of IoT devices and streaming data, we see a move toward the Slope of Enlightment.</p>
+					
+					<img src="presentation/assets/image/HypeCycle.svg" />
+				</section>
+				
+				<section data-background-image="presentation/assets/background/formula1.jpg" data-background-opacity="0.2">
+					<h3>Hardware Paradigm</h3>
+					
+					<ul>
+						<li>High-quality, on-prem, virtualized servers loaded with RAM and CPU cores running on NVMe SANs.</li>
+						<li>Smaller endpoint servers (e.g., IoT devices) communicating back to the big servers.</li>
+						<li>Cloud servers with mid-to-large amounts of RAM and compute backed by S3/Blob Storage plus local SSD.</li>
+						<li>Docker containers for development environments.</li>
+					</ul>
+					
+					<p>Hadoop now appears in more guises.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/ram.jpg" data-background-opacity="0.2">
+					<h3>Big Changes</h3>
+					
+					<p>Big Memory is now important for servers.  Spark has become the default processing engine over MapReduce.  Hive and other MapReduce-based products are increasingly using more memory to speed up query processing.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/raspberry-pi.jpg" data-background-opacity="0.2">
+					<h3>Small Servers</h3>
+					
+					<p>On the other side, endpoints are becoming smaller.  Apache NiFi is a quasi-ETL tool which pushes data from sources into HDFS and other data stores.  At the extreme end, MiNiFi (mini NiFi) can run on a Raspberry Pi 3.</p>
+
+					<p>The biggest advantage that NiFi has is its GUI, which makes it easy for Informatica or SQL Server Integration Services users to get started.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/stream.jpg" data-background-opacity="0.2" data-markdown>
+					<textarea data-template>
+					### Streaming
+
+					Apache Storm was the streaming progenitor but is less common nowadays.  Contenders:
+
+					|Name|Notes|
+					|----|-----|
+					|Storm|Too much Java!|
+					|Spark Streaming|Builds small RDDs for processing.|
+					|Kafka Streams|Best for ad hoc streams.|
+					|Flink|Best for central control.|
+					</textarea>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/clouds.jpg" data-background-opacity="0.2">
+					<h3>The Cloud</h3>
+					
+					<p>Another major move we have seen is a shift to the cloud.  Between EC2/Azure VMs and Platform as a Service offerings, teams are more likely to deploy new Hadoop to cloud providers than keeping things on-prem.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/elephant4.jpg" data-background-opacity="0.2">
+					<h3>HDInsight</h3>
+					
+					<p>Microsoft partnered with Hortonworks (now Cloudera) to provide the Hortonworks Data Platform as a PaaS offering:  HDInsight.  This is one of the most expensive Azure services, but it allows you to create and destroy Hadoop clusters easily.  These clusters can come with Hive, Pig, Spark, Storm, Kafka, and HBase, and allow you to install other components as well.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/rubber-bands.jpg" data-background-opacity="0.2">
+					<h3>ElasticMapReduce</h3>
+					
+					<p>Amazon has taken the MapR distribution and modified it to create their own Amazon Hadoop distribution.  They offer this as a PaaS product, ElasticMapReduce.  EMR is functionally similar to HDInsight.  It tends to be less expensive, but also a little lacking in terms of client tools.</p>
+
+					<p>There are benefits to both; neither is so much better that it'd tip the scales in cloud choice.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/clouds-orange.jpg" data-background-opacity="0.2">
+					<h3>Tips for the Cloud</h3>
+					
+					<ul>
+						<li>It's okay to use S3 or Blob Storage, though faster storage is better.</li>
+						<li>Save your data outside of the cluster and delete clusters not in use--there is no "pause" option!</li>
+						<li>HDInsight and EMR limit the set of open ports.  Ex:  HDInsight does not open up WebHDFS (50070) so you cannot access files that way.</li>
+						<li>Neither HDInsight nor EMR supports PolyBase directly.</li>
+					</ul>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/elephant5.jpg" data-background-opacity="0.2">
+					<h3>The New Cloudera</h3>
+					
+					<p>Hortonworks and Cloudera merged together in late 2018.  They now own the Hadoop market, but "the Hadoop market" has expanded to include a large set of technologies.</p>
+
+					<p>Hortonworks Data Platform and Cloudera Distribution of Hadoop will continue to be supported for a few years, but the new Cloudera is moving toward a synthesis of the two.  We don't know what will stay and what will go just yet.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Agenda</h3>
+					
+					<ol>
+						<li>Basic Overview</li>
+						<li>(2007-2011) The Birth of Hadoop</li>
+						<li>(2012-2014) Hadoop Hits the Mainstream</li>
+						<li>(2014-2016) Faster, Please</li>
+						<li>(2016-Now) Streaming and Cloud</li>
+						<li class="active">Comparison to SQL Server</li>
+						<li>Microsoft and Hadoop</li>
+					</ol>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/muay-thai.jpg" data-background-opacity="0.2" data-markdown>
+					<textarea data-template>
+					### Hadoop Versus(?) SQL
+
+					|Class|Hadoop|SQL Server|
+					|-----|------|----------|
+					|Processing|Batch (classic), Online (streaming)|Online/Batch|
+					|Structure|Semi-structured|Structured|
+					|Joins|Hard|Trivial|
+					|Scale-Out|Trivial|Hard|
+					|New Data|Mostly append|Merge|
+
+					These are two separate tools for two separate jobs.
+					</textarea>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/drawers.jpg" data-background-opacity="0.2">
+					<h3>Why Use SQL Server</h3>
+					
+					<ul>
+						<li>Provably good transactional systems (ACID compliance, normal forms, constraints, etc.)</li>
+						<li>Quick return times for application interfaces</li>
+						<li>OLTP scenarios</li>
+						<li>Warehousing:  answering known business questions</li>
+						<li>Great model with a lot of talented people and decades of research driving good practices</li>
+					</ul>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/elephant1.jpg" data-background-opacity="0.2">
+					<h3>Why Use Hadoop</h3>
+					
+					<ul>
+						<li>Aggregation of log data</li>
+						<li>Allocation and batch processing</li>
+						<li>Processing non-relational data (e.g., genetic data)</li>
+						<li>Text processing</li>
+						<li>Spelunking:  answering unknown business questions</li>
+						<li>Handling large amounts of streaming data (e.g., IoT devies)</li>
+						<li>Cold storage of data</li>
+					</ul>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/handshake.jpg" data-background-opacity="0.2">
+					<h3>Hadoop AND SQL Server</h3>
+					
+					<p>These are <strong>complements</strong>, not competitors!</p>
+					
+					<ul>
+						<li>Kafka ==> Spark Streaming ==> SQL Server</li>
+						<li>OLTP in SQL Server ==> Hadoop data lake ==> Hive reports</li>
+						<li>Nightly OLTP dump SQL Server ==> HDFS ==> Spark ==> SQL Server Warehouse</li>
+						<li>OLTP ==> Spark ==> SparkR / sparklyr</li>
+					</ul>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Agenda</h3>
+					
+					<ol>
+						<li>Basic Overview</li>
+						<li>(2007-2011) The Birth of Hadoop</li>
+						<li>(2012-2014) Hadoop Hits the Mainstream</li>
+						<li>(2014-2016) Faster, Please</li>
+						<li>(2016-Now) Streaming and Cloud</li>
+						<li>Comparison to SQL Server</li>
+						<li class="active">Microsoft and Hadoop</li>
+					</ol>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/elephants-together.jpg" data-background-opacity="0.2">
+					<h3>Microsoft and Hadoop</h3>
+					
+					<p>Pre-merger, Microsoft had associated itself closely with Hortonworks.  Azure's HDInsight is the Hortonworks Data Platform and Hortonworks provided support for HDInsight.  Post-merger, Microsoft has engaged with other partners as well as working on their own implementations.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>.NET Libraries</h3>
+					
+					<p>Microsoft has provided NuGet package to integrate with Hadoop.  These packages allow you to do things like manage HDFS and query Hive with LINQ.</p>
+					
+					<img src="presentation/assets/image/MicrosoftHadoop.png" height="367" width="797" />
+				</section>
+				
+				<section data-background-image="presentation/assets/background/library.jpg" data-background-opacity="0.2">
+					<h3>Other Libraries</h3>
+					
+					<p>Some third party companies create .NET drivers.  An example is Confluent, whose Kafka .NET driver is available via NuGet.</p>
+
+					<p>Microsoft provides some cross-platform support in various drivers.  They have, for example, an ODBC driver for Hive which we need to install in order to create linked servers to Hive.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>SSIS</h3>
+					
+					<p>SQL Server Integration Services has limited Hadoop integration, like running Hive and Pig jobs.  I wouldn't recommend this, though--it hasn't seen many updates since 2016.</p>
+
+					<img src="presentation/assets/image/SSIS.png" height="415" width="532" />
+				</section>
+				
+				<section data-background-image="presentation/assets/background/polyhedron.jpg" data-background-opacity="0.2">
+					<h3>PolyBase</h3>
+					
+					<p>Polybase is Microsoft's data virtualization technology.</p>
+
+					<p>It started by letting you connect to Hadoop and Azure Blob Storage.  Polybase is also a key method to load data into Azure Synapse Analytics.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/polyhedron2.jpg" data-background-opacity="0.2">
+					<h3>PolyBase</h3>
+					
+					<p>With SQL Server 2019, PolyBase support has expanded to include JDBC connections, so we can finally connect to Spark and Hive.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/connections.jpg" data-background-opacity="0.2">
+					<h3>Technologies to Learn</h3>
+					
+					<p>We covered quite a few Hadoop ecosystem technologies today, but don't feel overwhelmed.  Start with these:</p>
+					
+					<ul>
+						<li>Hive or Impala for SQL warehousing.</li>
+						<li>Spark:  learn Scala or Python and then learn how to integrate with Spark SQL.</li>
+						<li>Kafka and one streaming technology (Kafka Streams, Spark Streaming, or Flink).</li>
+						<li>For administrators:  Ranger and Knox, two security tools in Hadoop.</li>
+					</ul>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/wrapping-paper.jpg" data-background-opacity="0.2">
+					<h3>Wrapping Up</h3>
+					
+					<p>
+						To learn more, go here:
+						<br />
+						<a href="https://csmore.info/on/hadoop">https://CSmore.info/on/hadoop</a>
+					</p>
+					<br />
+					<p>
+						And for help, contact me:
+						<br />
+						<a href="mailto:feasel@catallaxyservices.com">feasel@catallaxyservices.com</a> | <a href="https://www.twitter.com/feaselkl">@feaselkl</a>
+					</p>
+					<br />
+					<p>
+						Catallaxy Services consulting:
+						<br />
+						<a href="https://csmore.info/contact">https://CSmore.info/on/contact</a>
+					</p>
+				</section>
+			</div>
+		</div>
+
+		<script src="../reveal.js/dist/reveal.js"></script>
+		<script src="../reveal.js/plugin/zoom/zoom.js"></script>
+		<script src="../reveal.js/plugin/notes/notes.js"></script>
+		<script src="../reveal.js/plugin/search/search.js"></script>
+		<script src="../reveal.js/plugin/markdown/markdown.js"></script>
+		<script src="../reveal.js/plugin/math/math.js"></script>
+		<script src="../reveal.js/plugin/menu/menu.js"></script>
+		<script src="../reveal.js/plugin/highlight/highlight.js"></script>
+		<script src="../reveal.js/plugin/chart/Chart.min.js"></script>
+		<script src="../reveal.js/plugin/chart/plugin.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				width: '70%',
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+				transition: 'fade',
+				
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath, RevealMenu, RevealChart ]
+			});
+		</script>
+	</body>
+</html>
